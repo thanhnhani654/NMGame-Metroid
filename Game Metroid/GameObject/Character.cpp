@@ -4,7 +4,6 @@ void Character::Initialize()
 {
 	CharacterSprite = nullptr;
 	CharacterSprite = SpriteManager::SpriteList[eSprite::eCharacter];
-	vx = 1;
 	CharacterSprite->SetStatus(stand);
 
 }
