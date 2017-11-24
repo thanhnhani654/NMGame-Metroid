@@ -71,6 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -92,6 +94,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;dinput8.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,6 +145,48 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddXML.cpp" />
+    <ClCompile Include="CollisionWorld.cpp" />
+    <ClCompile Include="Component\BoxCollider.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameObject\Character.cpp" />
+    <ClCompile Include="GameObject\GameObject.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\Scene1.cpp" />
+    <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
+    <ClCompile Include="TilesMap.cpp" />
+    <ClCompile Include="Winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AddXML.h" />
+    <ClInclude Include="CollisionWorld.h" />
+    <ClInclude Include="Component\BoxCollider.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameObject\character.h" />
+    <ClInclude Include="GameObject\GameObject.h" />
+    <ClInclude Include="Metroid.h" />
+    <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\Scene1.h" />
+    <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="TilesMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\Character.bmp" />
+    <Image Include="Resource\Enemies.bmp" />
+    <Image Include="Resource\Items.bmp" />
+    <Image Include="Resource\Menu.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resource\sheet1.xml" />
+    <Xml Include="Resource\sheet2.xml" />
+    <Xml Include="Resource\sheet3.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
