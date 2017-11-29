@@ -52,7 +52,7 @@ bool Game::GameRun(HWND hwnd)
 	
 	Update();
 
-	CollisionWorld::DetectCollision(hwnd);
+	//CollisionWorld::DetectCollision(hwnd);
 	float n, m=0.5f;
 
 	if (d3ddv->BeginScene())

@@ -4,21 +4,20 @@
 #include <dinput.h>
 #include "Game.h"
 #include <msxml.h>
+#include "Component\Controllable.h"
+#include "GameLog.h"
 
-#define FRAME_RATE 120
+#define FRAME_LIMIT 60
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmnLine, int nCmdShow)
 {
-	WNDCLASSEX wc;
+	WNDCLASS wc;
 	HWND hwnd;
 	MSG msg;
 
-	DWORD frame_start = GetTickCount();
-	DWORD count_per_frame = 1000 / FRAME_RATE;
-
-	wc.cbSize = sizeof(WNDCLASSEX);
+	//wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
 	wc.lpfnWndProc = (WNDPROC)WndProc;
 	wc.cbClsExtra = 0;
@@ -29,23 +28,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmnLine
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = TEXT("MeTroid");
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	//wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+
+	
 
 
-	if (!RegisterClassEx(&wc))
+	if (!RegisterClass(&wc))
 	{
 		MessageBox(NULL, TEXT("CANT RUN"), TEXT("MeTroid"), MB_ICONEXCLAMATION | MB_OK);
 		return 0;
 	}
 
-	hwnd = CreateWindowEx(WS_EX_CLIENTEDGE,
+	hwnd = CreateWindow(//WS_EX_CLIENTEDGE,
 		TEXT("MeTroid"),
 		TEXT("Tittle"),
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
-		800,
-		600,
+		480,
+		320,
 		NULL,
 		NULL,
 		hInstance,
@@ -56,10 +57,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmnLine
 
 	//////////////////////////////////////////////////////////////
 
+	int last_tick = 0;
+	int count_per_frame = 100 / FRAME_LIMIT;
+
 	Game game;
 	//game.GameInit(hwnd);
 	if (!game.GameInit(hwnd))
 		return false;
+
+	Controllable InitKeyBoard;
+	InitKeyBoard._InitKeyboard(hwnd, hInstance);
 
 	int done = 0;
 	while (!done)
@@ -71,17 +78,30 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmnLine
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		DWORD now = GetTickCount();
-		if (now - frame_start >= count_per_frame)
+
+		int current_tick = GetTickCount();
+		int DeltaTime = current_tick - last_tick;
+
+		if (DeltaTime >= count_per_frame)
 		{
-			frame_start = now;
-			game.GameRun(hwnd);
+			GAMELOG("FPS: %d", 1000/(DeltaTime));
+			if (1000 / DeltaTime > 30)
+			{
+				int h = 0;
+			}
+			if (1000 / DeltaTime < 10)
+			{
+				int h = 0;
+			}
+			last_tick = current_tick;
+			game.GameRun(hwnd);			
 		}
 		else
 		{
-			//Sleep(count_per_frame - (now-frame_start));
-			now += count_per_frame - (now - frame_start);
+			Sleep(count_per_frame - (current_tick - last_tick));
+			current_tick += count_per_frame - (current_tick - last_tick);
 		}
+
 	}
 
 	game.GameRelease();
@@ -93,9 +113,6 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
-	case WM_CLOSE:
-		DestroyWindow(hwnd);
-		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;

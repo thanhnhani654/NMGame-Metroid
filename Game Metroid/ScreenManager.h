@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene\Scene.h"
 #include "Scene\Scene1.h"
+#include "Define.h"
 #include <vector>
 
 using namespace std;

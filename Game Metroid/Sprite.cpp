@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <dinput.h>
 
+
 Sprite::Sprite(LPDIRECT3DDEVICE9 d3ddv,LPCWSTR Path, int Width, int Height)
 {
 	D3DXIMAGE_INFO info;
@@ -19,6 +20,8 @@ Sprite::Sprite(LPDIRECT3DDEVICE9 d3ddv,LPCWSTR Path, int Width, int Height)
 	_Width = Width;
 	_Height = Height;
 	_Index = 0;
+	FRAME_RATE = 1;
+	currentframe = 0;
 	
 	result = D3DXGetImageInfoFromFile(Path, &info);
 
@@ -37,7 +40,6 @@ Sprite::Sprite(LPDIRECT3DDEVICE9 d3ddv,LPCWSTR Path, int Width, int Height)
 		&info,				
 		NULL,
 		&_Image);
-	SetStatus(Animation::stand);
 }
 
 void Sprite::SetStatus(Animation t)
@@ -53,10 +55,27 @@ void Sprite::SetStatus(Animation t)
 
 void Sprite::Next()
 {
-	_Index +=1 ;
+	currentframe++;
+	if (currentframe > FRAME_RATE)
+	{
+		_Index += 1;
 
-	if (_Index < _Begin || _Index > _End)
-		_Index = _Begin;
+		if (_Index < _Begin || _Index > _End)
+			_Index = _Begin;
+		currentframe = 0;
+	}
+
+	
+}
+
+void Sprite::Flip()
+{
+	_Flip = true;
+}
+
+void Sprite::Reset()
+{
+	_Flip = false;
 }
 
 void Sprite::Render(int X, int Y, int vx, int vy)
@@ -64,7 +83,7 @@ void Sprite::Render(int X, int Y, int vx, int vy)
 	HRESULT hr;
 
 	RECT srect;
-	int i = 0;
+	int flip = 1;
 	srect.left = Pos[_Index].x;
 	srect.top = Pos[_Index].y;
 	srect.right = Pos[_Index].x + Pos[_Index].width;
@@ -76,27 +95,58 @@ void Sprite::Render(int X, int Y, int vx, int vy)
 
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
+	mt._11 = 1.0f;
 	mt._22 = -1.0f;
 	mt._41 = -vx;
 	mt._42 = vy;
 	D3DXVECTOR4 vp_pos;
 	D3DXVec3Transform(&vp_pos, &position, &mt);
 
-	D3DXVECTOR3 p(vp_pos.x, vp_pos.y, 0);
-	D3DXVECTOR3 center((float)_Width / 2, (float)_Height / 2, 0);
+	//Flip
+	D3DXMATRIX my;
+	D3DXMatrixIdentity(&my);
+	if (_Flip)
+	{
+		my._11 = -1.0f;
+		flip = -1;
+		_SpriteHandler->SetTransform(&my);
+	}
+	else
+	{
+		my._11 = 1.0f;
+		flip = 1;
+		_SpriteHandler->SetTransform(&my);
+	}
+	////////////////////////
+	
 
+	D3DXVECTOR3 p(vp_pos.x * flip, vp_pos.y, 0);
+	D3DXVECTOR3 center((float)Pos[_Index].width / 2, Pos[_Index].height / 2, 0);
 
-	hr = _SpriteHandler->Draw(
-		_Image,
-		&srect, 
-		NULL,
-		&p,
-		D3DCOLOR_XRGB(255, 255, 255)
+	if (!_IsMap)
+	{
+		hr = _SpriteHandler->Draw(
+			_Image,
+			&srect,
+			&center,
+			&p,
+			D3DCOLOR_XRGB(255, 255, 255)
+		);
+	}
+	else
+	{
+		hr = _SpriteHandler->Draw(
+			_Image,
+			&srect,
+			NULL,
+			&p,
+			D3DCOLOR_XRGB(255, 255, 255)
 	);
-
+	
 	if (hr != DI_OK)
-		return;
-
+			return;
+		
+	}
 	_SpriteHandler->End();
 
 }
@@ -119,4 +169,14 @@ void Sprite::AddAnimation(Animation eAnim, int Begin, int End)
 	temp._Begin = Begin;
 	temp._End = End;
 	AnimMap.insert(std::pair<Animation, BeginEnd>(eAnim, temp));
+}
+
+void Sprite::SetIsMap(bool map)
+{
+	_IsMap = map;
+}
+
+void Sprite::SetFrameRate(int rate)
+{
+	FRAME_RATE = rate;
 }

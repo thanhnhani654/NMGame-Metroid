@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "../SpriteManager.h"
 #include "../GameObject/Character.h"
+#include "../Component/Controllable.h"
 class Scene1 : public Scene
 {
 private:
@@ -11,4 +12,5 @@ public:
 	void Update();
 	void UpdateInput();
 	void Draw();
+	int test = 0;
 };

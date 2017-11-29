@@ -174,6 +174,10 @@ void TilesMap::Draw(int vx, int vy, int vw, int vh)
 		for (int y = 0; y < SizeY; y++)
 		{
 			if (Map[x][y] != 0)
-				MapObject[x][y].Render(x * BLOCK_WIDTH, y * BLOCK_HEIGHT , vx, vy);
+			{
+				MapObject[x][y].SetIsMap(true);
+				MapObject[x][y].Render(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, vx, vy);
+			}
+
 		}
 }

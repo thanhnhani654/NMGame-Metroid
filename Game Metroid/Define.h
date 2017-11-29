@@ -252,7 +252,7 @@
 #define wave_beam_begin 9
 #define wave_beam_end 9
 
-enum Anim
+enum Animation
 {
 	char_appear,
 	char_stand,

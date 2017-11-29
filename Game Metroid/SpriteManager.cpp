@@ -1,6 +1,7 @@
 #include "SpriteManager.h"
 #include "AddXML.h"
 
+
 std::map <eSprite, Sprite*> SpriteManager::SpriteList;
 std::map <eTiles, Sprite*> SpriteManager::TilesList;
 
@@ -18,9 +19,9 @@ void SpriteManager::LoadResource()
 		Character->GetPosition()[i].y = 1009 - Character->GetPosition()[i].y - Character->GetPosition()[i].height;
 	}
 
-	Character->AddAnimation(Animation::walk, char_run_begin, char_run_end);
-	Character->AddAnimation(Animation::stand, char_stand_begin, char_stand_end);
-	Character->SetStatus(Animation::walk);
+	Character->AddAnimation(Animation::char_appear, char_appear_begin, char_appear_end);
+	Character->AddAnimation(Animation::char_run, char_run_begin, char_run_end);
+	Character->AddAnimation(Animation::char_stand, char_stand_begin, char_stand_end);
 
 	SpriteList[eCharacter] = Character;
 	/*temp = Character;*/

@@ -26,11 +26,11 @@ bool Scene1::Init()
 	//Initialize Chacracter
 	_Character = new Character();
 	_Character->Initialize();
-	_Character->SetPosition(16*16, 3*16);
-	_Character->vx = 1;
+	_Character->SetPosition(16*17, 16*2);
+	_Character->vx = 0;
 
-	ViewPortX = _Character->GetPosition().x -320;
-	ViewPortY = _Character->GetPosition().y +320;
+	ViewPortX = _Character->GetPosition().x - 240;
+	ViewPortY = _Character->GetPosition().y - 160;// +160;
 	ViewPortWidth = 0;
 	ViewPortHeight = 0;
 
@@ -40,13 +40,13 @@ bool Scene1::Init()
 void Scene1::Update()
 {
 	_Character->Update();
-	ViewPortX = _Character->GetPosition().x - 320;
-	ViewPortY = _Character->GetPosition().y + 320;
+	ViewPortX = _Character->GetPosition().x - 240;
+	ViewPortY = 240;
 }
 
 void Scene1::UpdateInput()
 {
-
+	_Character->UpdateInput();
 }
 
 void Scene1::Draw()
