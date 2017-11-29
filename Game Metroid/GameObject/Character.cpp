@@ -4,10 +4,14 @@ void Character::Initialize()
 {
 	CharacterSprite = nullptr;
 	CharacterSprite = SpriteManager::SpriteList[eSprite::eCharacter];
+<<<<<<< HEAD
 	CharacterSprite->SetStatus(char_appear);
 	//CharacterSprite->SetFrameRate(10);
 
 	Controller = new Controllable();
+=======
+	CharacterSprite->SetStatus(stand);
+>>>>>>> 4f38962650d4e51b9698402c2c0529730fa14e47
 
 }
 
