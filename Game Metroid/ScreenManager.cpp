@@ -1,12 +1,14 @@
 #include "ScreenManager.h"
 
-bool ScreenManager::Init()
+bool ScreenManager::Init(LPDIRECT3DDEVICE9 id3ddv)
 {
 	if (!_listscene.empty())
 	{
 		_listscene.clear();
 	}
 	CurrentScene = NULL;
+
+	d3ddv = id3ddv;
 
 	return true;
 }
@@ -31,7 +33,9 @@ bool ScreenManager::ActiveScene(int index)
 	}
 	CurrentScene = _listscene.at(index);
 
+	CurrentScene->GetDevice(d3ddv);
 	CurrentScene->Init();
+	
 
 	return true;
 }

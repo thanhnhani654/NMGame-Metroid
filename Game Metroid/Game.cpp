@@ -35,7 +35,7 @@ bool Game::GameInit(HWND hwnd)
 
 	///////////////////////////////////////////Initialize Scene
 
-	Screen.Init();
+	Screen.Init(d3ddv);
 	Screen.LoadScene();
 	Screen.ActiveScene(0);
 
@@ -44,15 +44,17 @@ bool Game::GameInit(HWND hwnd)
 	
 	return true;
 }
-int y;
+
 bool Game::GameRun(HWND hwnd)
 {
 	d3ddv->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 	UpdateInput(hwnd);
 	
+	CollisionWorld::DetectCollision(hwnd);
+
 	Update();
 
-	//CollisionWorld::DetectCollision(hwnd);
+	
 	float n, m=0.5f;
 
 	if (d3ddv->BeginScene())

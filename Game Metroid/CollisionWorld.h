@@ -17,7 +17,7 @@ using namespace std;
 class  CollisionWorld
 {
 private:
-	static QuadTree* CreateQuadTree();
+//	static QuadTree* CreateQuadTree();
 
 	
 	

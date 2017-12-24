@@ -1,59 +1,83 @@
 #include "Scene1.h"
+#include "../Utility.h"
 
 bool Scene1::Init()
 {
-	//Initialize Map
-	Map.SetMapSize(80, 15);
-	int* map[15];
-	map[14] = new int[80]{ 18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	30,	0,	0,	0,	0,	0,	31,	0,	2,	0,	0,	0,	0,	0,	0,	0,	30,	0,	0,	0,	0,	0,	31,	0,	30,	0,	0,	0,	0,	0,	31,	0,	30,	0,	0,	0,	0,	0,	31,	0,	30,	0,	0,	0,	0,	0,	31,	0,	30,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	17,	0 };
-	map[13] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[12] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[11] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	5,	0,	0,	0,	0,	0,	5,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[10] = new int[80]{ 18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[9] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	17,	0,	0,	0,	0,	17,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	26,	25 };
-	map[8] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[7] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[6] = new int[80]{ 18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	18,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	37,	0,	0,	0,	17,	0 };
-	map[5] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[4] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	40,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[3] = new int[80]{ 18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	18,	0,	0,	0,	0,	0,	0,	39,	0,	0,	0,	0,	0,	39,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[2] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	42,	42,	0,	0,	0,	42,	42,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	1,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-	map[1] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0,	2,	0,	0,	0,	0,	0,	0,	0 };
-	map[0] = new int[80]{ 0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0 };
-<<<<<<< HEAD
-
-=======
->>>>>>> 4f38962650d4e51b9698402c2c0529730fa14e47
-	Map.SetMap(map);
-	
 	//Initialize Chacracter
 	_Character = new Character();
 	_Character->Initialize();
-	_Character->SetPosition(16*17, 16*2);
+	_Character->SetPosition(16 * 41, 16*3, 0);// 16 * 17, 16 * 2);
 	_Character->vx = 0;
 
-	ViewPortX = _Character->GetPosition().x - 240;
-	ViewPortY = _Character->GetPosition().y - 160;// +160;
-	ViewPortWidth = 0;
-	ViewPortHeight = 0;
+
+	//Initialize Camera
+	_Camera = new Camera();
+	_Camera->Initialize();
+	_Camera->SetAttachObject(_Character);
+	_Camera->FollowObjectOn();
+	_Camera->SetFollowX();
+	_Character->GetCamera(_Camera);
+
+	//Initialize Map
+
+	_Map1 = new Map1();
+	_Map1->Generating(_Camera);
+	_Map1->GetCharacter(_Character);
+	_Map1->MapActive();
+	
+
+	_Map2 = new Map2();
+	_Map2->Generating(_Camera);
+	//_Map2->MapActive();
+
+	Utility::gameCamera->x = _Camera->GetPosition().x;
+	Utility::gameCamera->y = _Camera->GetPosition().y;
+
+	//Initialize Gate
+	//_Gate = new Gate();
+	//_Gate->Initialize();
+	//_Gate->SetPosition(16 * 78, 16 * 6);
+	//_Gate->GetMap(_Map1, _Map2);
+
+	//_GateLeft = new GateLeft();
+	//_GateLeft->Initialize();
+	//_GateLeft->SetPosition(16 * 82, 16 * 6);
+	//_GateLeft->GetMap(_Map2, _Map1);
 
 	return true;
 }
 
 void Scene1::Update()
 {
+	_Map1->Update();
+	_Map2->Update();
 	_Character->Update();
-	ViewPortX = _Character->GetPosition().x - 240;
-	ViewPortY = 240;
+
+	_Camera->Update();
+
+	Utility::gameCamera->x = _Camera->GetPosition().x;
+	Utility::gameCamera->y = _Camera->GetPosition().y;
+
 }
 
 void Scene1::UpdateInput()
 {
 	_Character->UpdateInput();
+	_Map1->UpdateInput();
 }
 
 void Scene1::Draw()
 {
-	Map.Draw(ViewPortX,ViewPortY,ViewPortWidth, ViewPortHeight);
-	_Character->Draw(ViewPortX, ViewPortY);
+	//_Gate->Draw(_Camera->GetPosition().x, _Camera->GetPosition().y);
+
+	_Character->Draw(_Camera->GetPosition().x, _Camera->GetPosition().y);
+
+	_Map1->Draw(_Camera->GetPosition().x, _Camera->GetPosition().y, _Camera->GetWidth(), _Camera->GetHieght());
+	_Map1->DrawDebugBox(d3ddv, _Camera->GetPosition().x, _Camera->GetPosition().y);
+
+	_Map2->Draw(_Camera->GetPosition().x, _Camera->GetPosition().y, _Camera->GetWidth(), _Camera->GetHieght());
+	_Map2->DrawDebugBox(d3ddv, _Camera->GetPosition().x, _Camera->GetPosition().y);
+
+	//debug.DrawBox(_Character->Box->GetBoundingBox());
+
 }

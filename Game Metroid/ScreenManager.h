@@ -9,7 +9,7 @@ using namespace std;
 class ScreenManager
 {
 public:
-	bool Init();
+	bool Init(LPDIRECT3DDEVICE9 id3ddv);
 
 	void LoadScene();
 
@@ -23,6 +23,7 @@ public:
 
 	void Draw();
 
+	LPDIRECT3DDEVICE9 d3ddv;
 
 private:
 	vector <Scene*> _listscene;

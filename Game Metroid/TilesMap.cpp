@@ -1,5 +1,11 @@
 #include "TilesMap.h"
 
+void TilesMap::SetStartPoint(int X, int Y)
+{
+	StartPointX = X;
+	StartPointY = Y;
+}
+
 void TilesMap::SetMapSize(int sizeX, int sizeY)
 {
 	SizeX = sizeX;
@@ -21,8 +27,8 @@ void TilesMap::SetMapSize(int sizeX, int sizeY)
 
 void TilesMap::SetMap(int *map[])
 {
-	for ( int x= 0; x < SizeX; x++)
-		for (int y = 0; y <  SizeY; y++)
+	for (int x = 0; x < SizeX; x++)
+		for (int y = 0; y < SizeY; y++)
 			Map[x][y] = map[y][x];
 
 	for (int x = 0; x < SizeX; x++)
@@ -165,19 +171,44 @@ void TilesMap::SetMap(int *map[])
 		}
 }
 
-
-
 void TilesMap::Draw(int vx, int vy, int vw, int vh)
 {
-	k += 1;
-	for (int x = 0; x < SizeX; x++)
-		for (int y = 0; y < SizeY; y++)
-		{
-			if (Map[x][y] != 0)
+	if (IsActive())
+	{
+		for (int x = 0; x < SizeX; x++)
+			for (int y = 0; y < SizeY; y++)
 			{
-				MapObject[x][y].SetIsMap(true);
-				MapObject[x][y].Render(x * BLOCK_WIDTH, y * BLOCK_HEIGHT, vx, vy);
-			}
+				if (Map[x][y] != 0)
+				{
+					MapObject[x][y].SetIsMap(true);
+					MapObject[x][y].Render(x * BLOCK_WIDTH + StartPointX, y * BLOCK_HEIGHT + StartPointY, vx, vy);
+				}
 
-		}
+			}
+	}
+}
+
+void TilesMap::MapActive()
+{
+	bActive = true;
+}
+
+void TilesMap::MapDeActive()
+{
+	bActive = false;
+}
+
+bool TilesMap::IsActive()
+{
+	return bActive;
+}
+
+void TilesMap::Update()
+{
+
+}
+
+void TilesMap::UpdateInput()
+{
+
 }

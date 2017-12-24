@@ -39,7 +39,7 @@ protected:
 	bool _Flip = false;
 	bool _IsMap = false;
 
-	int FRAME_RATE;
+	float FRAME_RATE;
 	int currentframe;
 	
 	BeginEnd Beg;
@@ -63,7 +63,8 @@ public:
 	void Flip();
 	void Reset();
 	void SetIsMap(bool map);
-	void SetFrameRate(int rate);
+	void SetFrameRate(float rate);
+	Position GetCurrentPosition();
 
 	~Sprite();
 };

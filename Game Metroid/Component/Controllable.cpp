@@ -1,4 +1,5 @@
 #include "Controllable.h"
+#include "../GameLog.h"
 
 LPDIRECTINPUTDEVICE8 Controllable::Keyboard;
 
@@ -9,16 +10,14 @@ int Controllable::IsKeyDown(int KeyCode)
 	return (KeyStates[KeyCode] & 0x80) > 0;
 }
 
-
-void Controllable::OnKeyDown(int Keycode, func_void test)
+void Controllable::OnKeyUp(int KeyCode)
 {
-	switch (Keycode)
-	{
-	case DIK_UP:
-		test();
-		break;
-	}
 }
+
+void Controllable::OnKeyDown(int Keycode)
+{
+}
+
 void Controllable::_InitKeyboard(HWND hWnd, HINSTANCE hInstance)
 {
 	HRESULT
@@ -42,23 +41,6 @@ void Controllable::_InitKeyboard(HWND hWnd, HINSTANCE hInstance)
 
 	hr = Keyboard->SetProperty(DIPROP_BUFFERSIZE, &dipdw.diph);
 	hr = Keyboard->Acquire();
-}
-void Controllable::ProcessInput()
-{
-	if (KEY_DOWN(DIK_RIGHT))
-	{
-		/*g += 1;
-		if (g > 200000)
-		{*/
-		MessageBoxEx(NULL, L"Press Right", L"Error", NULL, NULL);
-		/*	g = 0;
-		}*/
-	}
-	//else
-	if (IsKeyDown(DIK_LEFT))
-	{
-		MessageBoxEx(NULL, L"Press Left", L"Error", NULL, NULL);
-	}
 
 }
 
@@ -77,10 +59,9 @@ void Controllable::_ProcessKeyBoard()
 		int KeyState = KeyEvents[i].dwData;
 		if ((KeyState & 0x80) > 0)
 		{
-			//OnKeyDown(KeyCode, Test);
+			OnKeyDown(KeyCode);
 		}
 		else
 			OnKeyUp(KeyCode);
 	}
 }
-

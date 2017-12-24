@@ -9,7 +9,15 @@ using namespace std;
 enum eSprite
 {
 	eCharacter,
-	
+	eZoomer,
+	eSkree,
+	eRipper,
+	eReo,
+	eMarumari,
+	eEnergy,
+	eNum1,
+	eNum2,
+	eBullet,
 
 };
 

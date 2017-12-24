@@ -176,7 +176,12 @@ void Sprite::SetIsMap(bool map)
 	_IsMap = map;
 }
 
-void Sprite::SetFrameRate(int rate)
+void Sprite::SetFrameRate(float rate)
 {
 	FRAME_RATE = rate;
+}
+
+Position Sprite::GetCurrentPosition()
+{
+	return Pos[_Index];
 }

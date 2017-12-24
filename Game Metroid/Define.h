@@ -3,8 +3,10 @@
 #define char_appear_end 2
 #define char_stand_begin 3
 #define char_stand_end 3
+#define char_stand_up_begin 5
+#define char_stand_up_end 5
 #define char_stand_shoot_begin 4
-#define char_stand_shoot_end 5
+#define char_stand_shoot_end 4
 #define char_run_begin 6
 #define char_run_end 8
 #define char_jump_begin 9
@@ -256,6 +258,7 @@ enum Animation
 {
 	char_appear,
 	char_stand,
+	char_stand_up,
 	char_stand_shoot,
 	char_run,
 	char_jump,
@@ -405,5 +408,15 @@ enum Animation
 	ice_beam,
 	wave_beam,
 
-
+	e0,
+	e1,
+	e2,
+	e3,
+	e4,
+	e5,
+	e6,
+	e7,
+	e8,
+	e9,
+	eEN,
 };

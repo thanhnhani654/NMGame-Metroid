@@ -9,22 +9,26 @@
 class Controllable
 {
 private:
-	int g = 0;
-	int y = 0;
-public:
 	LPDIRECTINPUT8 dinput = NULL;
 	LPDIRECTINPUTDEVICE8 didev = NULL;
 	static LPDIRECTINPUTDEVICE8 Keyboard;
 	BYTE KeyStates[256];
 	DIDEVICEOBJECTDATA KeyEvents[KEYBOARD_BUFFER_SIZE];
 	static LPDIRECTINPUT8 di;
-	typedef void(*func_void)();
+public:
+
 	void _InitKeyboard(HWND hWnd, HINSTANCE hInstance);
-	void ProcessInput();
-	void OnKeyDown(int Keycode, func_void);
-	void OnKeyUp(int Keycode) {};
-	int IsKeyDown(int KeyCode);
+
 	void _ProcessKeyBoard();
+
+	int IsKeyDown(int KeyCode);
+
+	virtual void OnKeyUp(int Keycode);
+	virtual void OnKeyDown(int Keycode);
+
+
+	
+
 
 
 };

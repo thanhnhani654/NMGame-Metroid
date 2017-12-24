@@ -45,8 +45,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmnLine
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT,
 		CW_USEDEFAULT,
-		480,
-		320,
+		272,
+		256,
 		NULL,
 		NULL,
 		hInstance,
@@ -84,7 +84,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmnLine
 
 		if (DeltaTime >= count_per_frame)
 		{
-			GAMELOG("FPS: %d", 1000/(DeltaTime));
+			//GAMELOG("FPS: %d", 1000/(DeltaTime));
 			if (1000 / DeltaTime > 30)
 			{
 				int h = 0;
